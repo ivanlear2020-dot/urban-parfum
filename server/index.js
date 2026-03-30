@@ -18,10 +18,10 @@ if (seedCount.c === 0) {
   }
 }
 
-// Rutas API (ANTES que los archivos estáticos)
-const paymentRoutes  = require('./routes/payment');
-const webhookRoutes  = require('./routes/webhook');
-const adminRoutes    = require('./routes/admin');
+// Rutas API
+const paymentRoutes   = require('./routes/payment');
+const webhookRoutes   = require('./routes/webhook');
+const adminRoutes     = require('./routes/admin');
 const productosRoutes = require('./routes/productos');
 
 app.use('/', paymentRoutes);
@@ -29,21 +29,20 @@ app.use('/', webhookRoutes);
 app.use('/', adminRoutes);
 app.use('/', productosRoutes);
 
-// Servir archivos estáticos del frontend (DESPUÉS de las rutas API)
-app.use(express.static(path.join(__dirname, '..')));
-
 // Health check
 app.get('/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
+// Archivos estáticos (CSS, JS, imágenes) — sin servir index.html automático
+app.use(express.static(path.join(__dirname, '..'), { index: false }));
+
+// SPA: cualquier ruta no resuelta devuelve index.html
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'index.html'));
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`✅ Servidor Urban Parfum corriendo en http://localhost:${PORT}`);
-  console.log(`   - POST /create_preference`);
-  console.log(`   - POST /webhook`);
-  console.log(`   - POST /admin/login`);
-  console.log(`   - GET  /api/productos`);
-  console.log(`   - GET  /admin/ordenes`);
-  console.log(`   - GET  /admin/productos`);
 });
