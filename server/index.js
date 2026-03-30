@@ -37,8 +37,8 @@ app.get('/health', (req, res) => {
 // Archivos estáticos (CSS, JS, imágenes) — sin servir index.html automático
 app.use(express.static(path.join(__dirname, '..'), { index: false }));
 
-// SPA: cualquier ruta no resuelta devuelve index.html
-app.get('*', (req, res) => {
+// SPA: cualquier ruta no resuelta devuelve index.html (compatible Express 5)
+app.use((req, res) => {
   res.sendFile(path.join(__dirname, '..', 'index.html'));
 });
 
