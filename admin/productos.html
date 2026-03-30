@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Productos — Urban Parfum</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:#0a0a0a; --surface:#111; --surface2:#1a1a1a; --border:#2a2a2a;
+      --gold:#c9a84c; --gold-dim:#8a6d2a; --text:#e8e0d0; --text-dim:#888;
+      --green:#2ecc71; --red:#e74c3c; --blue:#3498db; --yellow:#f39c12;
+    }
+    body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; }
+
+    /* TOPBAR */
+    .topbar {
+      display:flex; align-items:center; justify-content:space-between;
+      padding:16px 32px; background:var(--surface); border-bottom:1px solid var(--border);
+      position:sticky; top:0; z-index:10;
+    }
+    .topbar-brand { font-family:'Playfair Display',serif; font-size:1.2rem; color:var(--gold); letter-spacing:2px; }
+    .topbar-brand span { color:var(--text-dim); font-family:'Inter',sans-serif; font-size:0.8rem; letter-spacing:1px; margin-left:12px; }
+    .topbar-nav { display:flex; gap:8px; }
+    .nav-tab {
+      padding:8px 16px; border-radius:8px; border:1px solid var(--border);
+      background:var(--surface2); color:var(--text-dim); font-size:0.82rem;
+      cursor:pointer; text-decoration:none; transition:all .2s;
+    }
+    .nav-tab:hover { border-color:var(--gold-dim); color:var(--text); }
+    .nav-tab.active { background:var(--gold); color:#0a0a0a; border-color:var(--gold); font-weight:700; }
+    .topbar-actions { display:flex; gap:10px; }
+    .btn-icon {
+      background:var(--surface2); border:1px solid var(--border); color:var(--text);
+      border-radius:8px; padding:8px 14px; font-size:0.82rem; cursor:pointer;
+      display:flex; align-items:center; gap:6px; transition:border-color .2s;
+    }
+    .btn-icon:hover { border-color:var(--gold); color:var(--gold); }
+    .btn-primary {
+      background:var(--gold); border:none; color:#0a0a0a;
+      border-radius:8px; padding:8px 18px; font-size:0.85rem; font-weight:700;
+      cursor:pointer; display:flex; align-items:center; gap:6px; transition:opacity .2s;
+    }
+    .btn-primary:hover { opacity:.85; }
+
+    /* MAIN */
+    .main { padding:32px; max-width:1300px; margin:0 auto; }
+
+    /* Search + filter bar */
+    .toolbar {
+      display:flex; gap:12px; align-items:center; margin-bottom:24px; flex-wrap:wrap;
+    }
+    .toolbar-search {
+      position:relative; flex:1; min-width:200px; max-width:360px;
+    }
+    .toolbar-search input {
+      width:100%; padding:10px 16px 10px 40px; background:var(--surface2);
+      border:1px solid var(--border); border-radius:8px; color:var(--text);
+      font-size:0.88rem; outline:none; transition:border-color .2s;
+    }
+    .toolbar-search input:focus { border-color:var(--gold); }
+    .toolbar-search i { position:absolute; left:14px; top:50%; transform:translateY(-50%); color:var(--text-dim); font-size:0.82rem; }
+    .filter-sel {
+      padding:10px 14px; background:var(--surface2); border:1px solid var(--border);
+      border-radius:8px; color:var(--text); font-size:0.88rem; outline:none; cursor:pointer;
+    }
+    .filter-sel:focus { border-color:var(--gold); }
+
+    /* Grid de productos */
+    .products-grid {
+      display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:20px;
+    }
+
+    .product-card {
+      background:var(--surface); border:1px solid var(--border); border-radius:12px;
+      overflow:hidden; transition:border-color .2s;
+    }
+    .product-card:hover { border-color:var(--gold-dim); }
+    .product-card.inactive { opacity:.5; }
+
+    .pc-img {
+      width:100%; height:200px; object-fit:contain; background:var(--surface2);
+      padding:16px;
+    }
+    .pc-body { padding:16px; }
+    .pc-brand { font-size:0.72rem; color:var(--gold); letter-spacing:1.5px; text-transform:uppercase; margin-bottom:4px; }
+    .pc-name { font-size:0.95rem; font-weight:600; color:var(--text); margin-bottom:6px; }
+    .pc-price { font-size:1.1rem; font-weight:700; color:var(--gold); margin-bottom:12px; }
+    .pc-badges { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px; }
+    .badge {
+      display:inline-block; padding:3px 8px; border-radius:20px; font-size:0.7rem;
+      font-weight:700; letter-spacing:0.5px; text-transform:uppercase;
+    }
+    .badge-featured { background:rgba(201,168,76,.15); color:var(--gold); border:1px solid rgba(201,168,76,.3); }
+    .badge-inactive  { background:rgba(231,76,60,.15);  color:var(--red);  border:1px solid rgba(231,76,60,.3); }
+    .badge-active    { background:rgba(46,204,113,.15); color:var(--green);border:1px solid rgba(46,204,113,.3); }
+
+    .pc-actions { display:flex; gap:8px; }
+    .btn-edit {
+      flex:1; padding:8px; border:1px solid var(--border); background:var(--surface2);
+      color:var(--text); border-radius:6px; font-size:0.82rem; cursor:pointer;
+      display:flex; align-items:center; justify-content:center; gap:5px; transition:all .2s;
+    }
+    .btn-edit:hover { border-color:var(--gold); color:var(--gold); }
+    .btn-del {
+      padding:8px 12px; border:1px solid rgba(231,76,60,.3); background:rgba(231,76,60,.07);
+      color:var(--red); border-radius:6px; font-size:0.82rem; cursor:pointer; transition:all .2s;
+    }
+    .btn-del:hover { background:rgba(231,76,60,.15); }
+
+    .empty-state { text-align:center; padding:60px; color:var(--text-dim); }
+    .empty-state i { font-size:3rem; display:block; margin-bottom:16px; opacity:.3; }
+
+    .count-info { font-size:0.82rem; color:var(--text-dim); margin-bottom:16px; }
+
+    /* MODAL */
+    .modal-overlay {
+      position:fixed; inset:0; background:rgba(0,0,0,.8); backdrop-filter:blur(4px);
+      z-index:100; display:none; align-items:center; justify-content:center; padding:20px;
+    }
+    .modal-overlay.open { display:flex; }
+
+    .modal {
+      background:var(--surface); border:1px solid var(--border); border-radius:16px;
+      padding:32px; width:min(560px,100%); max-height:90vh; overflow-y:auto;
+      position:relative;
+    }
+    .modal h3 { font-family:'Playfair Display',serif; font-size:1.4rem; color:var(--gold); margin-bottom:24px; }
+    .modal-close {
+      position:absolute; top:16px; right:20px; background:none; border:none;
+      color:var(--text-dim); font-size:1.6rem; cursor:pointer; transition:color .2s;
+    }
+    .modal-close:hover { color:var(--text); }
+
+    .form-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+    .form-full { grid-column:1/-1; }
+    .form-group { display:flex; flex-direction:column; gap:6px; }
+    .form-group label { font-size:0.78rem; color:var(--text-dim); letter-spacing:0.5px; text-transform:uppercase; }
+    .form-group input, .form-group textarea, .form-group select {
+      padding:10px 14px; background:var(--surface2); border:1px solid var(--border);
+      border-radius:8px; color:var(--text); font-family:'Inter',sans-serif; font-size:0.9rem;
+      outline:none; transition:border-color .2s;
+    }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color:var(--gold); }
+    .form-group textarea { resize:vertical; min-height:80px; }
+    .form-check { display:flex; align-items:center; gap:10px; cursor:pointer; font-size:0.88rem; }
+    .form-check input { width:16px; height:16px; cursor:pointer; accent-color:var(--gold); }
+
+    .modal-actions { display:flex; gap:12px; margin-top:24px; }
+    .btn-cancel {
+      flex:1; padding:12px; border:1px solid var(--border); background:var(--surface2);
+      color:var(--text); border-radius:8px; font-size:0.9rem; cursor:pointer; transition:all .2s;
+    }
+    .btn-cancel:hover { border-color:var(--gold-dim); }
+    .btn-save {
+      flex:2; padding:12px; background:var(--gold); border:none; color:#0a0a0a;
+      border-radius:8px; font-size:0.9rem; font-weight:700; cursor:pointer; transition:opacity .2s;
+    }
+    .btn-save:hover { opacity:.85; }
+    .btn-save:disabled { opacity:.5; cursor:not-allowed; }
+
+    .img-preview { width:100%; height:120px; object-fit:contain; border-radius:8px; background:var(--surface2); margin-top:8px; display:none; }
+    .img-preview.show { display:block; }
+
+    @media(max-width:600px) {
+      .main { padding:16px; }
+      .topbar { padding:12px 16px; }
+      .form-grid { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="topbar-brand">URBAN PARFUM <span>/ PRODUCTOS</span></div>
+    <div class="topbar-nav">
+      <a href="/admin/ordenes" class="nav-tab">Órdenes</a>
+      <a href="/admin/productos" class="nav-tab active">Productos</a>
+    </div>
+    <div class="topbar-actions">
+      <button class="btn-primary" id="btn-new">
+        <i class="fa-solid fa-plus"></i> Nuevo producto
+      </button>
+      <button class="btn-icon" id="logout-btn">
+        <i class="fa-solid fa-right-from-bracket"></i> Salir
+      </button>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="toolbar">
+      <div class="toolbar-search">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="search" id="search-input" placeholder="Buscar por nombre o marca…">
+      </div>
+      <select class="filter-sel" id="brand-filter">
+        <option value="">Todas las marcas</option>
+        <option>Afnan</option>
+        <option>Armaf</option>
+        <option>Bharara</option>
+        <option>Al Haramain</option>
+        <option>Rasasi</option>
+        <option>Lattafa</option>
+      </select>
+      <select class="filter-sel" id="status-filter">
+        <option value="">Todos los estados</option>
+        <option value="1">Activos</option>
+        <option value="0">Inactivos</option>
+      </select>
+    </div>
+    <div class="count-info" id="count-info"></div>
+    <div class="products-grid" id="products-grid">
+      <div class="empty-state"><i class="fa-solid fa-spinner fa-spin"></i> Cargando…</div>
+    </div>
+  </div>
+
+  <!-- MODAL PRODUCTO -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal">
+      <button class="modal-close" id="modal-close">×</button>
+      <h3 id="modal-title">Nuevo producto</h3>
+      <form id="product-form">
+        <input type="hidden" id="f-id">
+        <div class="form-grid">
+          <div class="form-group form-full">
+            <label>Nombre</label>
+            <input type="text" id="f-name" placeholder="Ej: Club de Nuit Intense Man" required>
+          </div>
+          <div class="form-group">
+            <label>Marca</label>
+            <select id="f-brand" required>
+              <option value="">Seleccionar…</option>
+              <option>Afnan</option><option>Armaf</option><option>Bharara</option>
+              <option>Al Haramain</option><option>Rasasi</option><option>Lattafa</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Precio (ARS)</label>
+            <input type="number" id="f-price" placeholder="Ej: 84999" min="0" step="1" required>
+          </div>
+          <div class="form-group form-full">
+            <label>URL de imagen</label>
+            <input type="url" id="f-image" placeholder="https://…" oninput="previewImage(this.value)">
+            <img id="img-preview" class="img-preview" alt="preview">
+          </div>
+          <div class="form-group form-full">
+            <label>Descripción</label>
+            <textarea id="f-desc" placeholder="Notas olfativas, características…"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-check">
+              <input type="checkbox" id="f-featured"> Destacado (aparece en Más Vendidos)
+            </label>
+          </div>
+          <div class="form-group">
+            <label class="form-check">
+              <input type="checkbox" id="f-active" checked> Activo (visible en tienda)
+            </label>
+          </div>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn-cancel" id="modal-cancel">Cancelar</button>
+          <button type="submit" class="btn-save" id="btn-save">
+            <i class="fa-solid fa-floppy-disk"></i> Guardar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="admin-toast" style="
+    position:fixed;bottom:28px;right:28px;z-index:9999;
+    background:#1a1a1a;border:1px solid #2a2a2a;border-left:4px solid #c9a84c;
+    color:#e8e0d0;padding:14px 20px;border-radius:8px;font-size:0.88rem;
+    box-shadow:0 8px 32px rgba(0,0,0,0.5);opacity:0;transform:translateY(12px);
+    transition:opacity 0.25s,transform 0.25s;pointer-events:none;max-width:320px;
+  "></div>
+
+  <script>
+    const TOKEN_KEY = 'up_admin_token';
+    let allProducts = [];
+
+    function showAdminToast(msg, type) {
+      const el = document.getElementById('admin-toast');
+      el.textContent = msg;
+      el.style.borderLeftColor = type === 'error' ? '#e74c3c' : type === 'ok' ? '#2ecc71' : '#c9a84c';
+      el.style.opacity = '1';
+      el.style.transform = 'translateY(0)';
+      el.style.pointerEvents = 'auto';
+      clearTimeout(el._t);
+      el._t = setTimeout(() => { el.style.opacity = '0'; el.style.transform = 'translateY(12px)'; }, 3000);
+    }
+
+    function getToken() { return sessionStorage.getItem(TOKEN_KEY); }
+    function clearToken() { sessionStorage.removeItem(TOKEN_KEY); }
+
+    function checkAuth() {
+      if (!getToken()) window.location.href = '/admin/ordenes';
+    }
+
+    function authHeaders() {
+      return { 'Content-Type': 'application/json', 'Authorization': `Bearer ${getToken()}` };
+    }
+
+    // ── Load products ───────────────────────────────────
+    async function loadProducts() {
+      try {
+        const res = await fetch('/api/productos', { headers: { 'Authorization': `Bearer ${getToken()}` } });
+        if (res.status === 401) return window.location.href = '/admin/ordenes';
+        // /api/productos es público, incluir inactivos requiere endpoint admin
+        const pubRes = await fetch('/api/admin/productos-all', { headers: authHeaders() });
+        allProducts = pubRes.ok ? await pubRes.json() : await res.json();
+        renderGrid();
+      } catch (e) {
+        document.getElementById('products-grid').innerHTML = '<div class="empty-state"><i class="fa-solid fa-triangle-exclamation"></i><p>Error cargando productos</p></div>';
+      }
+    }
+
+    // ── Render ───────────────────────────────────────────
+    function renderGrid() {
+      const search = document.getElementById('search-input').value.toLowerCase();
+      const brand  = document.getElementById('brand-filter').value;
+      const status = document.getElementById('status-filter').value;
+
+      let list = allProducts;
+      if (search) list = list.filter(p => p.name.toLowerCase().includes(search) || p.brand.toLowerCase().includes(search));
+      if (brand)  list = list.filter(p => p.brand === brand);
+      if (status !== '') list = list.filter(p => String(p.active) === status);
+
+      document.getElementById('count-info').textContent = `${list.length} producto${list.length !== 1 ? 's' : ''}`;
+
+      if (list.length === 0) {
+        document.getElementById('products-grid').innerHTML = '<div class="empty-state"><i class="fa-solid fa-box-open"></i><p>Sin resultados</p></div>';
+        return;
+      }
+
+      document.getElementById('products-grid').innerHTML = list.map(p => `
+        <div class="product-card ${p.active ? '' : 'inactive'}">
+          <img class="pc-img" src="${esc(p.image)}" alt="${esc(p.name)}" onerror="this.src=''">
+          <div class="pc-body">
+            <div class="pc-brand">${esc(p.brand)}</div>
+            <div class="pc-name">${esc(p.name)}</div>
+            <div class="pc-price">$${Number(p.price).toLocaleString('es-AR')}</div>
+            <div class="pc-badges">
+              ${p.featured ? '<span class="badge badge-featured">Destacado</span>' : ''}
+              <span class="badge ${p.active ? 'badge-active' : 'badge-inactive'}">${p.active ? 'Activo' : 'Inactivo'}</span>
+            </div>
+            <div class="pc-actions">
+              <button class="btn-edit" onclick="openEdit(${p.id})"><i class="fa-solid fa-pen"></i> Editar</button>
+              <button class="btn-del" onclick="toggleActive(${p.id}, ${p.active})" title="${p.active ? 'Desactivar' : 'Activar'}">
+                <i class="fa-solid fa-${p.active ? 'eye-slash' : 'eye'}"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function esc(str) {
+      return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    // ── Filtros ──────────────────────────────────────────
+    document.getElementById('search-input').addEventListener('input', renderGrid);
+    document.getElementById('brand-filter').addEventListener('change', renderGrid);
+    document.getElementById('status-filter').addEventListener('change', renderGrid);
+
+    // ── Modal ────────────────────────────────────────────
+    function openModal() {
+      document.getElementById('modal-overlay').classList.add('open');
+      document.getElementById('f-name').focus();
+    }
+
+    function closeModal() {
+      document.getElementById('modal-overlay').classList.remove('open');
+      document.getElementById('product-form').reset();
+      document.getElementById('f-id').value = '';
+      document.getElementById('img-preview').classList.remove('show');
+    }
+
+    document.getElementById('btn-new').addEventListener('click', () => {
+      document.getElementById('modal-title').textContent = 'Nuevo producto';
+      document.getElementById('f-active').checked = true;
+      openModal();
+    });
+
+    document.getElementById('modal-close').addEventListener('click', closeModal);
+    document.getElementById('modal-cancel').addEventListener('click', closeModal);
+    document.getElementById('modal-overlay').addEventListener('click', e => {
+      if (e.target === document.getElementById('modal-overlay')) closeModal();
+    });
+
+    function openEdit(id) {
+      const p = allProducts.find(x => x.id === id);
+      if (!p) return;
+      document.getElementById('modal-title').textContent = 'Editar producto';
+      document.getElementById('f-id').value = p.id;
+      document.getElementById('f-name').value = p.name;
+      document.getElementById('f-brand').value = p.brand;
+      document.getElementById('f-price').value = p.price;
+      document.getElementById('f-image').value = p.image || '';
+      document.getElementById('f-desc').value = p.description || '';
+      document.getElementById('f-featured').checked = !!p.featured;
+      document.getElementById('f-active').checked = !!p.active;
+      previewImage(p.image);
+      openModal();
+    }
+
+    function previewImage(url) {
+      const img = document.getElementById('img-preview');
+      if (url && url.startsWith('http')) {
+        img.src = url;
+        img.classList.add('show');
+      } else {
+        img.classList.remove('show');
+      }
+    }
+
+    // ── Save ─────────────────────────────────────────────
+    document.getElementById('product-form').addEventListener('submit', async e => {
+      e.preventDefault();
+      const btn = document.getElementById('btn-save');
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Guardando…';
+
+      const id = document.getElementById('f-id').value;
+      const body = {
+        name:        document.getElementById('f-name').value.trim(),
+        brand:       document.getElementById('f-brand').value,
+        price:       Number(document.getElementById('f-price').value),
+        image:       document.getElementById('f-image').value.trim(),
+        description: document.getElementById('f-desc').value.trim(),
+        featured:    document.getElementById('f-featured').checked,
+        active:      document.getElementById('f-active').checked,
+      };
+
+      try {
+        const url = id ? `/api/admin/productos/${id}` : '/api/admin/productos';
+        const method = id ? 'PUT' : 'POST';
+        const res = await fetch(url, { method, headers: authHeaders(), body: JSON.stringify(body) });
+        if (!res.ok) throw new Error((await res.json()).error || 'Error');
+        const saved = await res.json();
+        if (id) {
+          const idx = allProducts.findIndex(x => x.id === Number(id));
+          if (idx >= 0) allProducts[idx] = saved;
+        } else {
+          allProducts.unshift(saved);
+        }
+        closeModal();
+        renderGrid();
+        showAdminToast(id ? 'Producto actualizado' : 'Producto creado', 'ok');
+      } catch (err) {
+        showAdminToast('Error: ' + err.message, 'error');
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Guardar';
+      }
+    });
+
+    // ── Toggle activo ────────────────────────────────────
+    async function toggleActive(id, currentActive) {
+      try {
+        const p = allProducts.find(x => x.id === id);
+        const res = await fetch(`/api/admin/productos/${id}`, {
+          method: 'PUT',
+          headers: authHeaders(),
+          body: JSON.stringify({ ...p, active: !currentActive }),
+        });
+        if (!res.ok) throw new Error();
+        const updated = await res.json();
+        const idx = allProducts.findIndex(x => x.id === id);
+        if (idx >= 0) allProducts[idx] = updated;
+        renderGrid();
+        showAdminToast(currentActive ? 'Producto desactivado' : 'Producto activado', 'ok');
+      } catch {
+        showAdminToast('No se pudo actualizar el estado', 'error');
+      }
+    }
+
+    // ── Logout ───────────────────────────────────────────
+    document.getElementById('logout-btn').addEventListener('click', () => {
+      clearToken();
+      window.location.href = '/admin/ordenes';
+    });
+
+    // ── Init ─────────────────────────────────────────────
+    checkAuth();
+    loadProducts();
+  </script>
+</body>
+</html>

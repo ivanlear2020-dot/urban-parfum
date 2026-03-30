@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Urban Parfum — Signature Essence</title>
+  <meta name="description" content="Perfumes premium orientales: Armaf, Afnan, Bharara, Al Haramain, Rasasi y Lattafa. Envío gratis a todo Argentina.">
+
+  <!-- Favicon SVG -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%23080e1a'/><text y='.9em' font-size='72' x='50%' text-anchor='middle' dominant-baseline='top' fill='%23c87941'>U</text></svg>">
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website">
+  <meta property="og:title"       content="Urban Parfum — Signature Essence">
+  <meta property="og:description" content="Perfumes orientales premium 100% originales. Envío gratis a todo Argentina. Armaf, Bharara, Al Haramain y más.">
+  <meta property="og:image"       content="https://cdn.shopify.com/s/files/1/0703/2995/8561/files/Club_De_nuit_Banner.png?v=1769745460">
+  <meta property="og:locale"      content="es_AR">
+  <meta name="twitter:card"       content="summary_large_image">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-inner">
+
+      <!-- Logo -->
+      <a href="#" class="logo" onclick="event.preventDefault(); navigateTo('inicio')">
+        <img id="header-logo" src="images/logo-transparent-dark.png" alt="Urban Parfum">
+      </a>
+
+      <!-- Nav -->
+      <nav>
+        <a href="#" class="nav-link active-link" data-section="inicio">Inicio</a>
+        <a href="#" class="nav-link" data-section="catalogo">Catálogo</a>
+        <a href="#" class="nav-link" data-section="marcas">Marcas</a>
+        <a href="#" class="nav-link" data-section="contacto">Contacto</a>
+      </nav>
+
+      <!-- Acciones -->
+      <!-- Hamburguesa (solo mobile) -->
+      <button class="hamburger" id="hamburger" aria-label="Menú">
+        <span></span><span></span><span></span>
+      </button>
+
+      <div class="header-actions">
+
+        <!-- Toggle día/noche -->
+        <label class="theme-toggle" title="Cambiar tema">
+          <input type="checkbox" id="theme-toggle">
+          <span class="theme-slider">
+            <span class="theme-icon-moon">🌙</span>
+            <span class="theme-icon-sun">☀️</span>
+          </span>
+        </label>
+
+        <!-- Carrito -->
+        <button class="cart-btn" id="cart-btn">
+          <i class="fa-solid fa-cart-shopping"></i> Carrito
+          <span class="cart-count" id="cart-count" style="display:none">0</span>
+        </button>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SLIDER -->
+  <section class="hero-slider">
+    <div class="slides">
+      <div class="slide active" style="background-image: url('https://cdn.shopify.com/s/files/1/0703/2995/8561/files/Club_De_nuit_Banner.png?v=1769745460')"></div>
+      <div class="slide" style="background-image: url('https://cdn.shopify.com/s/files/1/0703/2995/8561/files/Hawas_Fire_Banner.png?v=1769745462')"></div>
+      <div class="slide" style="background-image: url('https://cdn.shopify.com/s/files/1/0703/2995/8561/files/Homme_White_Banner.png?v=1769745464')"></div>
+    </div>
+
+    <!-- Controles -->
+    <button class="slider-btn prev" id="slider-prev">&#8249;</button>
+    <button class="slider-btn next" id="slider-next">&#8250;</button>
+
+    <!-- Dots -->
+    <div class="slider-dots">
+      <span class="dot active" data-index="0"></span>
+      <span class="dot" data-index="1"></span>
+      <span class="dot" data-index="2"></span>
+    </div>
+  </section>
+
+  <!-- MENÚ MOBILE -->
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="#" class="mobile-link" data-section="inicio">Inicio</a>
+    <a href="#" class="mobile-link" data-section="catalogo">Catálogo</a>
+    <a href="#" class="mobile-link" data-section="marcas">Marcas</a>
+    <a href="#" class="mobile-link" data-section="contacto">Contacto</a>
+  </div>
+
+  <!-- SECCIÓN INICIO -->
+  <section id="inicio" class="page-section active-section">
+
+    <!-- DESTACADOS -->
+    <div class="home-section">
+      <div class="home-section-header">
+        <h2>Más Vendidos</h2>
+        <div class="section-line"></div>
+        <p>Fragancias que conquistan</p>
+      </div>
+      <div class="featured-grid" id="featured-grid"></div>
+    </div>
+
+    <!-- BANNER CLUB DE NUIT -->
+    <div class="editorial-banner" style="background-image: url('https://cdn.shopify.com/s/files/1/0703/2995/8561/files/Banner_Cub_de_Nuit.png?v=1769890051')">
+      <div class="editorial-content">
+        <h3 class="editorial-title">CLUB DE NUIT</h3>
+        <p class="editorial-desc">Descubrí una línea definida por la confianza y la maestría serena. Encontrá tu historia.</p>
+        <button class="editorial-btn" onclick="navigateTo('catalogo'); setFilter('Armaf')">EXPLORAR LA COLECCIÓN</button>
+      </div>
+    </div>
+
+    <!-- STRIP PROMO -->
+    <div class="promo-strip">
+      <div class="promo-strip-item">
+        <span class="psi-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v3"/><rect x="9" y="11" width="14" height="10" rx="1"/><circle cx="12" cy="21" r="1"/><circle cx="20" cy="21" r="1"/></svg></span>
+        <span>Envío gratuito en todos los pedidos</span>
+      </div>
+      <div class="promo-strip-item">
+        <span class="psi-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg></span>
+        <span>Fragancias 100% originales</span>
+      </div>
+      <div class="promo-strip-item">
+        <span class="psi-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.5"/></svg></span>
+        <span>Devolución sin costo</span>
+      </div>
+      <div class="promo-strip-item">
+        <span class="psi-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+        <span>Miles de clientes satisfechos</span>
+      </div>
+    </div>
+
+    <!-- NUEVOS -->
+    <div class="home-section">
+      <div class="home-section-header">
+        <h2>Descubrí Más</h2>
+        <div class="section-line"></div>
+        <p>Todas nuestras fragancias</p>
+      </div>
+      <div class="scroll-row-wrap">
+        <div class="scroll-row" id="scroll-row"></div>
+      </div>
+      <div class="scroll-row-action">
+        <button class="btn-ver-todo" onclick="navigateTo('catalogo')">Ver catálogo completo →</button>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- SECCIÓN DETALLE DE PRODUCTO -->
+  <section id="producto" class="page-section">
+    <div class="pdp-back-bar">
+      <div class="pdp-back-inner">
+        <button class="pdp-back-btn" id="pdp-back-btn">← Volver</button>
+      </div>
+    </div>
+    <div class="pdp-container">
+      <div class="pdp-image-wrap">
+        <img id="pdp-img" src="" alt="">
+      </div>
+      <div class="pdp-info">
+        <div class="pdp-brand" id="pdp-brand"></div>
+        <h1 class="pdp-name" id="pdp-name"></h1>
+        <div class="pdp-price" id="pdp-price"></div>
+        <p class="pdp-desc" id="pdp-desc"></p>
+
+        <!-- Badges de confianza -->
+        <div class="modal-badges">
+          <div class="modal-badge">
+            <i class="fa-solid fa-truck-fast modal-badge-icon"></i>
+            <span class="modal-badge-text">Envío gratis</span>
+          </div>
+          <div class="modal-badge">
+            <i class="fa-solid fa-circle-check modal-badge-icon"></i>
+            <span class="modal-badge-text">100% original</span>
+          </div>
+          <div class="modal-badge">
+            <i class="fa-solid fa-bag-shopping modal-badge-icon"></i>
+            <span class="modal-badge-text">Cómo comprar</span>
+          </div>
+        </div>
+
+        <!-- Cantidad -->
+        <div class="modal-qty-wrap">
+          <span class="qty-label">Cantidad</span>
+          <div class="qty-control">
+            <button class="qty-btn" id="pdp-qty-minus">−</button>
+            <span class="qty-value" id="pdp-qty-value">1</span>
+            <button class="qty-btn" id="pdp-qty-plus">+</button>
+          </div>
+        </div>
+
+        <!-- Acciones -->
+        <div class="modal-actions">
+          <button class="modal-add-btn" id="pdp-add-btn">Agregar al carrito</button>
+          <button class="modal-buy-btn" id="pdp-buy-btn">Comprar ahora</button>
+        </div>
+
+        <!-- WhatsApp consulta -->
+        <a href="https://wa.me/5491156914557" target="_blank" rel="noopener" class="pdp-wa-link">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Consultar por WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN CATÁLOGO -->
+  <section id="catalogo" class="page-section">
+    <!-- Barra superior: búsqueda + orden -->
+    <div class="catalog-toolbar">
+      <div class="catalog-search-wrap">
+        <i class="fa-solid fa-magnifying-glass catalog-search-icon"></i>
+        <input type="search" id="catalog-search" class="catalog-search-input" placeholder="Buscar fragancia o marca…" autocomplete="off">
+      </div>
+      <select id="catalog-sort" class="catalog-sort-select">
+        <option value="default">Orden por defecto</option>
+        <option value="price-asc">Precio: menor a mayor</option>
+        <option value="price-desc">Precio: mayor a menor</option>
+        <option value="name-asc">Nombre A–Z</option>
+      </select>
+    </div>
+    <!-- Filtros -->
+    <div class="filters">
+      <span class="filter-label">Marca:</span>
+      <button class="filter-btn active" data-filter="all">Todos</button>
+      <button class="filter-btn" data-filter="Afnan">Afnan</button>
+      <button class="filter-btn" data-filter="Armaf">Armaf</button>
+      <button class="filter-btn" data-filter="Bharara">Bharara</button>
+      <button class="filter-btn" data-filter="Al Haramain">Al Haramain</button>
+      <button class="filter-btn" data-filter="Rasasi">Rasasi</button>
+      <button class="filter-btn" data-filter="Lattafa">Lattafa</button>
+    </div>
+    <main class="products-section">
+      <div class="products-header">
+        <span class="products-count" id="products-count">36 perfumes</span>
+      </div>
+      <div class="products-grid" id="products-grid"></div>
+    </main>
+  </section>
+
+  <!-- SECCIÓN MARCAS -->
+  <section id="marcas" class="page-section">
+
+    <!-- Header de sección -->
+    <div class="marcas-hero">
+      <div class="marcas-hero-inner">
+        <span class="marcas-eyebrow"><i class="fa-solid fa-star"></i> Perfumería oriental premium</span>
+        <h1 class="marcas-title">Nuestras Marcas</h1>
+        <p class="marcas-desc">Trabajamos con las mejores casas de perfumería oriental del mundo. Fragancias 100% originales con la calidad y la proyección que merecés.</p>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="marcas-stats-bar">
+      <div class="marcas-stat">
+        <span class="marcas-stat-num" id="stat-brand-count">6</span>
+        <span class="marcas-stat-label">Marcas Premium</span>
+      </div>
+      <div class="marcas-stat-sep"></div>
+      <div class="marcas-stat">
+        <span class="marcas-stat-num" id="stat-total-products">36+</span>
+        <span class="marcas-stat-label">Fragancias</span>
+      </div>
+      <div class="marcas-stat-sep"></div>
+      <div class="marcas-stat">
+        <span class="marcas-stat-num">100%</span>
+        <span class="marcas-stat-label">Originales</span>
+      </div>
+    </div>
+
+    <!-- Lista editorial de marcas -->
+    <div class="simple-section marcas-list-wrap">
+      <div class="brand-list" id="brand-list"></div>
+    </div>
+
+    <!-- Grid de acceso rápido -->
+    <div class="simple-section marcas-grid-wrap">
+      <h3 class="marcas-grid-title">Explorar por marca</h3>
+      <div class="marcas-quick-grid">
+        <div class="mqg-card" data-brand="Afnan" onclick="navigateTo('catalogo'); setFilter('Afnan')">
+          <i class="fa-solid fa-bottle-droplet mqg-icon"></i>
+          <span class="mqg-name">Afnan</span>
+          <span class="mqg-action">Ver fragancias <i class="fa-solid fa-arrow-right"></i></span>
+        </div>
+        <div class="mqg-card" data-brand="Armaf" onclick="navigateTo('catalogo'); setFilter('Armaf')">
+          <i class="fa-solid fa-crown mqg-icon"></i>
+          <span class="mqg-name">Armaf</span>
+          <span class="mqg-action">Ver fragancias <i class="fa-solid fa-arrow-right"></i></span>
+        </div>
+        <div class="mqg-card" data-brand="Bharara" onclick="navigateTo('catalogo'); setFilter('Bharara')">
+          <i class="fa-solid fa-gem mqg-icon"></i>
+          <span class="mqg-name">Bharara</span>
+          <span class="mqg-action">Ver fragancias <i class="fa-solid fa-arrow-right"></i></span>
+        </div>
+        <div class="mqg-card" data-brand="Al Haramain" onclick="navigateTo('catalogo'); setFilter('Al Haramain')">
+          <i class="fa-solid fa-mosque mqg-icon"></i>
+          <span class="mqg-name">Al Haramain</span>
+          <span class="mqg-action">Ver fragancias <i class="fa-solid fa-arrow-right"></i></span>
+        </div>
+        <div class="mqg-card" data-brand="Rasasi" onclick="navigateTo('catalogo'); setFilter('Rasasi')">
+          <i class="fa-solid fa-wind mqg-icon"></i>
+          <span class="mqg-name">Rasasi</span>
+          <span class="mqg-action">Ver fragancias <i class="fa-solid fa-arrow-right"></i></span>
+        </div>
+        <div class="mqg-card" data-brand="Lattafa" onclick="navigateTo('catalogo'); setFilter('Lattafa')">
+          <i class="fa-solid fa-leaf mqg-icon"></i>
+          <span class="mqg-name">Lattafa</span>
+          <span class="mqg-action">Ver fragancias <i class="fa-solid fa-arrow-right"></i></span>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- SECCIÓN CONTACTO -->
+  <section id="contacto" class="page-section">
+    <div class="simple-section">
+
+      <!-- Header -->
+      <div class="contact-header">
+        <span class="badge-247">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Tienda 24/7 — siempre disponibles
+        </span>
+        <h2>Contacto</h2>
+        <p class="contact-text">¿Tenés alguna consulta? Escribinos y te respondemos a la brevedad.</p>
+      </div>
+
+      <!-- Tarjetas de contacto -->
+      <div class="contact-cards">
+
+        <a href="https://wa.me/5491156914557" target="_blank" rel="noopener" class="contact-card contact-card-wa">
+          <div class="contact-card-icon">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </div>
+          <div class="contact-card-body">
+            <span class="contact-card-label">WhatsApp</span>
+            <span class="contact-card-sub">+54 9 11 5691-4557</span>
+            <span class="contact-card-action">Enviar mensaje →</span>
+          </div>
+        </a>
+
+        <a href="https://www.instagram.com/urban.parfumm?igsh=MWpqaWxrc3ZxeW9nZg%3D%3D" target="_blank" rel="noopener" class="contact-card contact-card-ig">
+          <div class="contact-card-icon">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </div>
+          <div class="contact-card-body">
+            <span class="contact-card-label">Instagram</span>
+            <span class="contact-card-sub">@urban.parfumm</span>
+            <span class="contact-card-action">Ver perfil →</span>
+          </div>
+        </a>
+
+      </div>
+
+      <!-- FAQ -->
+      <div class="faq-section">
+        <h3 class="faq-title">Preguntas frecuentes</h3>
+
+        <div class="faq-tabs" role="tablist">
+          <button class="faq-tab faq-tab--active" role="tab" aria-selected="true" data-tab="envios">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            Envíos
+          </button>
+          <button class="faq-tab" role="tab" aria-selected="false" data-tab="pagos">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+            Pagos
+          </button>
+        </div>
+
+        <!-- Panel Envíos -->
+        <div class="faq-panel faq-panel--active" id="faq-tab-envios" role="tabpanel">
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              ¿A qué zonas realizan envíos?
+              <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-answer" hidden>
+              <p>Enviamos a todo el país a través de Correo Argentino y OCA. Para el AMBA (CABA y Gran Buenos Aires) también ofrecemos envío por moto con entrega en el mismo día.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              ¿Cuánto tarda en llegar mi pedido?
+              <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-answer" hidden>
+              <p><strong>AMBA (moto):</strong> entrega el mismo día o al día siguiente hábil.<br>
+              <strong>Interior del país:</strong> entre 3 y 7 días hábiles según la zona, una vez que el pago esté confirmado.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              ¿El envío tiene costo?
+              <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-answer" hidden>
+              <p>El costo de envío varía según la zona y el servicio elegido. Consultanos por WhatsApp con tu código postal y te damos el precio exacto antes de confirmar el pedido.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              ¿Cómo hago el seguimiento de mi pedido?
+              <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-answer" hidden>
+              <p>Una vez despachado tu pedido te enviamos el número de seguimiento por WhatsApp para que puedas rastrearlo en tiempo real desde el sitio del correo.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              ¿Qué pasa si mi pedido llega dañado?
+              <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-answer" hidden>
+              <p>Todos nuestros pedidos se empaquetan con protección extra. Si aun así el producto llega dañado, escribinos dentro de las 48 hs con fotos y lo resolvemos de inmediato.</p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Panel Pagos -->
+        <div class="faq-panel" id="faq-tab-pagos" role="tabpanel" hidden>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              ¿Qué medios de pago aceptan?
+              <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-answer" hidden>
+              <p>Aceptamos transferencia bancaria, Mercado Pago (tarjetas de crédito, débito y saldo en cuenta) y efectivo para entregas en mano dentro del AMBA.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              ¿Puedo pagar en cuotas?
+              <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-answer" hidden>
+              <p>Sí. A través de Mercado Pago podés pagar con tarjeta de crédito en hasta 12 cuotas. Las condiciones varían según el banco y la promoción vigente al momento de la compra.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              ¿Es seguro pagar en Urban Parfum?
+              <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-answer" hidden>
+              <p>Totalmente. Procesamos los pagos con tarjeta a través de Mercado Pago, que cuenta con cifrado SSL y protección al comprador. Tus datos nunca son almacenados en nuestros servidores.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              ¿Cuándo se acredita mi pago?
+              <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-answer" hidden>
+              <p>Las transferencias bancarias se acreditan de inmediato. Los pagos con tarjeta a través de Mercado Pago se confirman en minutos. Una vez acreditado el pago, preparamos tu pedido.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              ¿Puedo pedir factura?
+              <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-answer" hidden>
+              <p>Sí. Si necesitás factura, indicalo al momento de hacer el pedido y nos enviás tu CUIT/CUIL. La emitimos junto con el despacho.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+
+      <div class="footer-top">
+
+        <!-- Marca -->
+        <div class="footer-brand-col">
+          <a href="#" onclick="event.preventDefault(); navigateTo('inicio')">
+            <img id="footer-logo" src="images/logo-transparent-dark.png" alt="Urban Parfum">
+          </a>
+          <p class="footer-tagline">Fragancias premium de las mejores marcas orientales. Envíos a todo el país.</p>
+          <div class="footer-social">
+            <a href="https://wa.me/5491156914557" target="_blank" rel="noopener" class="footer-social-btn fs-wa" title="WhatsApp">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            </a>
+            <a href="https://www.instagram.com/urban.parfumm?igsh=MWpqaWxrc3ZxeW9nZg%3D%3D" target="_blank" rel="noopener" class="footer-social-btn fs-ig" title="Instagram">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Contacto -->
+        <div class="footer-contact-col">
+          <h4 class="footer-col-title">Contacto</h4>
+          <div class="footer-contact-list">
+            <a href="https://wa.me/5491156914557" target="_blank" rel="noopener" class="footer-contact-item">
+              <svg class="footer-contact-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              <span>WhatsApp</span>
+            </a>
+            <a href="mailto:ventas@urbanparfum.ar" class="footer-contact-item">
+              <svg class="footer-contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              <span>ventas@urbanparfum.ar</span>
+            </a>
+            <div class="footer-contact-item">
+              <svg class="footer-contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span>Buenos Aires, Argentina</span>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /footer-top -->
+
+      <div class="footer-bottom">
+        <p>© 2026 Urban Parfum. Todos los derechos reservados.</p>
+        <div class="footer-payment">
+          <span class="footer-payment-label">Aceptamos</span>
+          <span class="footer-payment-mp">Mercado Pago</span>
+        </div>
+      </div>
+
+    </div><!-- /footer-inner -->
+  </footer>
+
+  <!-- SCROLL TO TOP -->
+  <button id="scroll-top-btn" class="scroll-top-btn" aria-label="Volver arriba">
+    <i class="fa-solid fa-chevron-up"></i>
+  </button>
+
+  <!-- WHATSAPP FLOTANTE -->
+  <a href="https://wa.me/5491156914557" target="_blank" rel="noopener" class="wa-float" aria-label="Consultar por WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
+
+  <!-- MODAL PRODUCTO -->
+  <div class="modal-overlay" id="modal-overlay"></div>
+  <div class="modal-product" id="modal-product">
+    <button class="modal-close" id="modal-close">×</button>
+    <div class="modal-inner">
+
+      <!-- Imagen -->
+      <div class="modal-image-wrap">
+        <img id="modal-img" src="" alt="">
+      </div>
+
+      <!-- Info -->
+      <div class="modal-info">
+        <div class="modal-brand" id="modal-brand"></div>
+        <h2 class="modal-name" id="modal-name"></h2>
+        <div class="modal-price" id="modal-price"></div>
+        <p class="modal-desc" id="modal-desc"></p>
+
+        <!-- Badges de confianza -->
+        <div class="modal-badges">
+          <div class="modal-badge">
+            <i class="fa-solid fa-truck-fast modal-badge-icon"></i>
+            <span class="modal-badge-text">Envío gratis</span>
+          </div>
+          <div class="modal-badge">
+            <i class="fa-solid fa-circle-check modal-badge-icon"></i>
+            <span class="modal-badge-text">100% original</span>
+          </div>
+          <div class="modal-badge">
+            <i class="fa-solid fa-bag-shopping modal-badge-icon"></i>
+            <span class="modal-badge-text">Cómo comprar</span>
+          </div>
+        </div>
+
+        <!-- Cantidad -->
+        <div class="modal-qty-wrap">
+          <span class="qty-label">Cantidad</span>
+          <div class="qty-control">
+            <button class="qty-btn" id="qty-minus">−</button>
+            <span class="qty-value" id="qty-value">1</span>
+            <button class="qty-btn" id="qty-plus">+</button>
+          </div>
+        </div>
+
+        <!-- Botones -->
+        <div class="modal-actions">
+          <button class="modal-add-btn" id="modal-add-btn">Agregar al carrito</button>
+          <button class="modal-buy-btn" id="modal-buy-btn">Comprar ahora</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PANEL CARRITO -->
+  <div class="cart-overlay" id="cart-overlay"></div>
+  <div class="cart-panel" id="cart-panel">
+    <div class="cart-header">
+      <h2>Tu Carrito</h2>
+      <button class="cart-close" id="cart-close">×</button>
+    </div>
+    <div class="cart-items" id="cart-items">
+      <div class="cart-empty">Tu carrito está vacío</div>
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span>Total</span>
+        <span id="cart-total">$0</span>
+      </div>
+      <button class="btn-checkout" id="btn-checkout">Finalizar Compra</button>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <!-- MODAL CHECKOUT — datos del comprador -->
+  <div class="checkout-overlay" id="checkout-overlay"></div>
+  <div class="checkout-modal" id="checkout-modal" role="dialog" aria-modal="true" aria-labelledby="checkout-title">
+    <button class="checkout-close" id="checkout-close" aria-label="Cerrar">×</button>
+    <div class="checkout-modal-header">
+      <i class="fa-solid fa-lock checkout-lock-icon"></i>
+      <h2 id="checkout-title">Completar pedido</h2>
+      <p>Ingresá tus datos para proceder al pago seguro</p>
+    </div>
+    <form class="checkout-form" id="checkout-form" novalidate>
+      <div class="cf-group">
+        <label for="cf-name">Nombre completo <span class="cf-req">*</span></label>
+        <input type="text" id="cf-name" placeholder="Ej: Juan Pérez" autocomplete="name" required>
+        <span class="cf-error" id="cf-name-err"></span>
+      </div>
+      <div class="cf-group">
+        <label for="cf-email">Email <span class="cf-req">*</span></label>
+        <input type="email" id="cf-email" placeholder="Ej: juan@email.com" autocomplete="email" required>
+        <span class="cf-error" id="cf-email-err"></span>
+      </div>
+      <div class="cf-group">
+        <label for="cf-phone">Teléfono / WhatsApp <span class="cf-optional">(opcional)</span></label>
+        <input type="tel" id="cf-phone" placeholder="Ej: 11 5691-4557" autocomplete="tel">
+      </div>
+      <div class="checkout-summary" id="checkout-summary"></div>
+      <button type="submit" class="checkout-submit-btn" id="checkout-submit-btn">
+        <i class="fa-solid fa-credit-card"></i> Continuar a Mercado Pago
+      </button>
+      <p class="checkout-secure-note">
+        <i class="fa-solid fa-shield-halved"></i> Pago 100% seguro con cifrado SSL
+      </p>
+    </form>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
