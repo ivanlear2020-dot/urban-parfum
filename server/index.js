@@ -7,9 +7,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Servir archivos estáticos del frontend
-app.use(express.static(path.join(__dirname, '..')));
-
 // Seed automático de productos (solo si la tabla está vacía)
 const db = require('./db');
 const seedCount = db.prepare('SELECT COUNT(*) as c FROM productos').get();
@@ -21,7 +18,7 @@ if (seedCount.c === 0) {
   }
 }
 
-// Rutas
+// Rutas API (ANTES que los archivos estáticos)
 const paymentRoutes  = require('./routes/payment');
 const webhookRoutes  = require('./routes/webhook');
 const adminRoutes    = require('./routes/admin');
@@ -31,6 +28,9 @@ app.use('/', paymentRoutes);
 app.use('/', webhookRoutes);
 app.use('/', adminRoutes);
 app.use('/', productosRoutes);
+
+// Servir archivos estáticos del frontend (DESPUÉS de las rutas API)
+app.use(express.static(path.join(__dirname, '..')));
 
 // Health check
 app.get('/health', (req, res) => {
