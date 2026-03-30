@@ -1,0 +1,7 @@
+{
+  "name": "urban-parfum",
+  "scripts": {
+    "start": "node server/index.js",
+    "postinstall": "cd server && npm install"
+  }
+}
